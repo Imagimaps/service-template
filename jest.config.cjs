@@ -1,6 +1,3 @@
-const { pathsToModuleNameMapper } = require('ts-jest');
-const { compilerOptions } = require('./tsconfig');
-
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   preset: 'ts-jest',
@@ -11,5 +8,10 @@ module.exports = {
   coverageReporters: ['json', 'lcov', 'html', 'text'],
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/dist/', '/coverage/', '/resources/'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+  transform: {'\\.[jt]s?$': ['ts-jest', { useESM: true }] },
+  extensionsToTreatAsEsm: ['.ts'],
+  moduleNameMapper: {
+    '^(.*)\\.js': '$1',
+    '^@/(.*)\\.js': '<rootDir>/src/$1',
+  },
 };
