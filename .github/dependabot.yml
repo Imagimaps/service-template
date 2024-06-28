@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "all"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    automerged_updates:
+      - match:
+          update_type: "all"
+        automerge: true
