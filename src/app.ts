@@ -1,16 +1,23 @@
 import Koa from 'koa';
 import parser from 'koa-bodyparser';
+import favicon from 'koa-favicon';
+import cors from '@koa/cors';
+import logger from 'koa-pino-logger';
 
 import { router } from '@/routes.js';
 
 const app = new Koa();
-app.use(parser());
-app.use(router.routes());
-app.use(async ctx => {
-    ctx.body = 'Default Response';
-});
+app
+    .use(favicon('./favicon.ico'))
+    .use(cors())
+    .use(parser())
+    .use(router.routes())
+    .use(logger())
+    .use(async ctx => {
+        ctx.body = 'Default Response';
+    });
 
-const startWebServer = async () => {
+const startApiServer = async () => {
     console.log('Starting Koa Web Server...');
     
     app.listen(8080, () => {
@@ -20,5 +27,5 @@ const startWebServer = async () => {
 
 export default app;
 export {
-    startWebServer
+    startApiServer
 };
