@@ -1,4 +1,4 @@
-name: CI OAuth2 Service
+name: Template Service
 
 on:
   push:
